@@ -51,3 +51,6 @@ for n = [1 : 1 : 10]
     
     nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
 end
+
+nSpringsParallel = [stiffness; nSpringsParallel]
+nSpringsSeries = [stiffness; nSpringsSeries]
