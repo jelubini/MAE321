@@ -1,0 +1,14 @@
+%Joel Lubinitsky
+%MAE 321 - HW 2
+%01/28/15
+
+clear all
+close all
+clc
+
+%% Given
+mass = 175; %kg
+stiffness = 2500; %N/m
+durationResponse = 2; %s
+xInitial = 0; %m
+velocityInitial = 10; %mm/s

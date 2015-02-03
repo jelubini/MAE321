@@ -1,0 +1,36 @@
+% Joel Lubinitsky - 02/04/15
+% MAE 321 - HW 3.1
+
+clear all
+close all
+clc
+
+% Problem 1:
+% A spring-mass-damper system having mass of 100 kg, stiffness of
+% 3000 N/m, and damping coefficient of 300 Ns/m is given a zero initial
+% velocity and an initial displacement of 0.1 m. Calculate the form of
+% the response and plot it for as long as it takes to die out.
+
+% Unknown
+%   Form of response (zeta)
+%   Plot response
+
+%% Known
+mass               = 100;  % kg
+stiffness          = 3000; % kg/s^2
+coefficientDamping = 300;  % kg/s
+velocityInitial    = 0;    % m/s
+xInitial           = 0.1;  % m
+
+%% Calculations
+frequencyNatural = sqrt(stiffness / mass);
+coefficientDampingCritical = 2 * sqrt(stiffness * mass);        % kg/s
+ratioDamping = coefficientDamping / coefficientDampingCritical;
+frequencyNaturalDamped = frequencyNatural * sqrt(1 - ratioDamping ^ 2);
+
+% [ratioDamping < 1] -> Underdamped Response
+constantA = sqrt(((velocityInitial + ratioDamping * frequencyNatural * xInitial) ^ 2 + (xInitial * frequencyNaturalDamped) ^ 2) / frequencyNaturalDamped ^ 2);
+constantPhi = atan((xInitial * frequencyNaturalDamped) / (velocityInitial + ratioDamping * frequencyNatural * xIntitial));
+time = [0 : 0.1 : 10];
+
+x = constantA * exp(-ratioDam
