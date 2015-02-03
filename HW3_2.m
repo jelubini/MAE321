@@ -41,15 +41,17 @@ end
 
 nSpringsSeries = zeros(1, length(stiffness));
 [minSpring, indexSpring] = min(stiffness);
-for n = [1 : 1 : 10]
-    nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
-    stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
-    
-    if stiffnessRemaining == 0
-        break
+if stiffnessRemaining ~= 0
+    for n = [1 : 1 : 10]
+        nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
+        stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
+        
+        if stiffnessRemaining == 0
+            break
+        end
+        
+        nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
     end
-    
-    nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
 end
 
 nSpringsParallel = [stiffness; nSpringsParallel]
