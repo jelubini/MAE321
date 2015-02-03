@@ -15,7 +15,7 @@ clc
 % if the natural frequency is to be f_n = 600 Hz.
 
 % Unknown
-% Cross-sectional area
+%   Cross-sectional area
 
 %% Known
 length             = 0.4;          % m
@@ -24,8 +24,13 @@ mass               = 100;          % kg
 frequencyNaturalHz = 600;          % Hz
 
 %% Calculations
-% k = E * A / l
-% w_n = sqrt(k / m)
+% Rod with axial stiffness
+
+% $$ k = \frac{EA}{l} $$
+
+% $$ w_n = sqrt(k / m)
 % f_n = w_n / (2 * pi)
 %
-% 
+% A = (4 * m * l * pi ^ 2 * f_n ^ 2) / E
+
+areaCrossSection = (4 * mass * length * pi ^ 2 * frequencyNaturalHz ^ 2) / modulusYoungs % m ^ 2

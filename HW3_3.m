@@ -25,8 +25,9 @@ frequencyNaturalHz = 600;          % Hz
 
 %% Calculations
 % Rod with axial stiffness
-% k = E * A / l
-% w_n = sqrt(k / m)
+% $$ \\ k = \frac{EA}{l} $$
+
+% $$ w_n = \sqrt{\frac{k}{m}} $$
 % f_n = w_n / (2 * pi)
 %
 % A = (4 * m * l * pi ^ 2 * f_n ^ 2) / E
