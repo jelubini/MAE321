@@ -5,15 +5,13 @@ clear all
 close all
 clc
 
-% Problem 1:
+%% Problem 1:
 % A spring-mass-damper system having mass of 100 kg, stiffness of
 % 3000 N/m, and damping coefficient of 300 Ns/m is given a zero initial
 % velocity and an initial displacement of 0.1 m. Calculate the form of
 % the response and plot it for as long as it takes to die out.
-
-% Unknown
-%   Form of response (zeta)
-%   Plot response
+%
+% Unknown: Form of response ($$ \zeta $$), Plot response
 
 %% Known
 mass               = 100;  % kg

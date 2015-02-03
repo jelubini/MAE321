@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>HW3_3</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-03"><meta name="DC.source" content="HW3_3.m"><style type="text/css">
+      --><title>HW3_4</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-03"><meta name="DC.source" content="HW3_4.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,23 +65,26 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 3:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 4:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
 <span class="comment">% MAE 321 - HW 3.3</span>
 
 clear <span class="string">all</span>
 close <span class="string">all</span>
 clc
-</pre><h2>Problem 3:<a name="2"></a></h2><p>A helicopter landing gear consists of a metal framework rather than the coil spring based suspension system used in a fixed-wing aircraft. The vibration of the frame in the vertical direction can be modeled by a spring made of a slender bar, such as the one illustrated in Figure 1.23 of the textbook. Here l = 0.4 m, E = 20 x 10 ^ 10 N/m ^ 2, and m = 100 kg. Calculate the cross-sectional area that should be used if the natural frequency is to be f_n = 600 Hz.</p><p>Unknown: Cross-sectional area</p><h2>Known<a name="3"></a></h2><pre class="codeinput">length             = 0.4;          <span class="comment">% m</span>
-modulusYoungs      = 20 * 10 ^ 10; <span class="comment">% N/m ^ 2</span>
-mass               = 100;          <span class="comment">% kg</span>
-frequencyNaturalHz = 600;          <span class="comment">% Hz</span>
-</pre><h2>Calculations<a name="4"></a></h2><p>Rod with axial stiffness</p><p><img src="HW3_3_eq56932.png" alt="$$ k = \frac{EA}{l} $$"></p><p><img src="HW3_3_eq81638.png" alt="$$ w_n = \sqrt{\frac{k}{m}} $$"></p><p><img src="HW3_3_eq33841.png" alt="$$ f_n = \frac{w_n}{2\pi} $$"></p><p>Therefore,</p><p><img src="HW3_3_eq00828.png" alt="$$ A = \frac{4ml\pi^2f_n^2}{E} $$"></p><pre class="codeinput">areaCrossSection = (4 * mass * length * pi ^ 2 * frequencyNaturalHz ^ 2) / modulusYoungs <span class="comment">% m ^ 2</span>
+</pre><h2>Problem 4:<a name="2"></a></h2><p>Calculate the natural frequency and damping ratio for the system in Figure P1.91 given the values m = 10 kg, c = 100 kgs, k_1 = 4000 N/m, k_2 = 200 N/m, and k_3 = 1000 N/m. Assume that no friction acts on the rollers. Is the system overdamped, critically damped, or underdamped?</p><p>Unknown: <img src="HW3_4_eq21197.png" alt="$$ \zeta $$"></p><h2>Known<a name="3"></a></h2><pre class="codeinput">mass = 10;
+coefficientDamping = 100;
+stiffness1 = 4000;
+stiffness2 = 200;
+stiffness3 = 1000;
+</pre><h2>Calculations<a name="4"></a></h2><p><img src="HW3_4_eq20169.png" alt="$$ \zeta = \frac{c}{c_{cr}} $$"></p><p><img src="HW3_4_eq14643.png" alt="$$ c_{cr} = 2\sqrt{k_{eff}m} $$"></p><p><img src="HW3_4_eq04556.png" alt="$$ k_{eff} = k_1 + \frac{k_2k_3}{k_2+k_3} $$"></p><p>Therefore,</p><p><img src="HW3_4_eq85744.png" alt="$$ \zeta = \frac{c}{2\sqrt{k_1 + \frac{k_2k_3}{k_2+k_3}m}} $$"></p><pre class="codeinput">stiffnessEffective = stiffness1 + stiffness2 * stiffness3 / (stiffness2 + stiffness3);
+coefficientDampingCritical = 2 * sqrt(stiffnessEffective * mass);
+ratioDamping = coefficientDamping / coefficientDampingCritical
 </pre><pre class="codeoutput">
-areaCrossSection =
+ratioDamping =
 
-    0.0028
+    0.2449
 
-</pre><h2>Results<a name="5"></a></h2><p>Cross-sectional area <img src="HW3_3_eq17819.png" alt="$$ A = 0.0028 \ m^2 $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><h2>Results<a name="5"></a></h2><p>System is underdamped because <img src="HW3_4_eq87205.png" alt="$$ \zeta < 1 $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky - 02/04/15
 % MAE 321 - HW 3.3
@@ -90,39 +93,37 @@ clear all
 close all
 clc
 
-%% Problem 3:
-% A helicopter landing gear consists of a metal framework rather than
-% the coil spring based suspension system used in a fixed-wing aircraft.
-% The vibration of the frame in the vertical direction can be modeled by
-% a spring made of a slender bar, such as the one illustrated in
-% Figure 1.23 of the textbook. Here l = 0.4 m, E = 20 x 10 ^ 10 N/m ^ 2,
-% and m = 100 kg. Calculate the cross-sectional area that should be used
-% if the natural frequency is to be f_n = 600 Hz.
+%% Problem 4:
+% Calculate the natural frequency and damping ratio for the system in
+% Figure P1.91 given the values m = 10 kg, c = 100 kgs, k_1 = 4000 N/m,
+% k_2 = 200 N/m, and k_3 = 1000 N/m. Assume that no friction acts on the
+% rollers. Is the system overdamped, critically damped, or underdamped?
 %
-% Unknown: Cross-sectional area
+% Unknown: $$ \zeta $$
 
 %% Known
-length             = 0.4;          % m
-modulusYoungs      = 20 * 10 ^ 10; % N/m ^ 2
-mass               = 100;          % kg
-frequencyNaturalHz = 600;          % Hz
+mass = 10;
+coefficientDamping = 100;
+stiffness1 = 4000;
+stiffness2 = 200;
+stiffness3 = 1000;
 
 %% Calculations
-% Rod with axial stiffness 
-% 
-% $$ k = \frac{EA}{l} $$
+% $$ \zeta = \frac{c}{c_{cr}} $$
 %
-% $$ w_n = \sqrt{\frac{k}{m}} $$
+% $$ c_{cr} = 2\sqrt{k_{eff}m} $$
 %
-% $$ f_n = \frac{w_n}{2\pi} $$
+% $$ k_{eff} = k_1 + \frac{k_2k_3}{k_2+k_3} $$
 %
 % Therefore,
 %
-% $$ A = \frac{4ml\pi^2f_n^2}{E} $$
+% $$ \zeta = \frac{c}{2\sqrt{k_1 + \frac{k_2k_3}{k_2+k_3}m}} $$
 
-areaCrossSection = (4 * mass * length * pi ^ 2 * frequencyNaturalHz ^ 2) / modulusYoungs % m ^ 2
+stiffnessEffective = stiffness1 + stiffness2 * stiffness3 / (stiffness2 + stiffness3);
+coefficientDampingCritical = 2 * sqrt(stiffnessEffective * mass);
+ratioDamping = coefficientDamping / coefficientDampingCritical
 
 %% Results
-% Cross-sectional area $$ A = 0.0028 \ m^2 $$
+% System is underdamped because $$ \zeta < 1 $$
 ##### SOURCE END #####
 --></body></html>

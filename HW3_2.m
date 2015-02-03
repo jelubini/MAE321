@@ -5,13 +5,12 @@ clear all
 close all
 clc
 
-% Problem 2:
+%% Problem 2:
 % Springs are available in stiffness values of 10, 100, and 1000 N/m.
 % Design a spring system using these values only, so that a 150 kg mass is
 % connected to ground with an undamped natural frequency of about 1.5 rad/s.
-
-% Unknown
-%   Number/position of springs
+%
+% Unknown: Number/position of springs
 
 %% Known
 mass             = 150;  % kg
@@ -22,7 +21,9 @@ stiffness3       = 1000; % kg/s^2
 stiffness        = [stiffness1 stiffness2 stiffness3];
 
 %% Calculations
-% w_n = sqrt(k/m) -> k = m * w_n ^ 2
+% $$ w_n = \sqrt{\frac{k}{m}} $$
+%
+% $$ k = mw_n ^ 2 $$
 stiffnessTotal = mass * frequencyNatural ^ 2;
 
 stiffness = sort(stiffness, 'descend');
@@ -56,3 +57,6 @@ end
 
 nSpringsParallel = [stiffness; nSpringsParallel]
 nSpringsSeries = [stiffness; nSpringsSeries]
+
+%% Results
+% 

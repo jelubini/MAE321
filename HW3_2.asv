@@ -5,13 +5,12 @@ clear all
 close all
 clc
 
-% Problem 2:
+%% Problem 2:
 % Springs are available in stiffness values of 10, 100, and 1000 N/m.
 % Design a spring system using these values only, so that a 150 kg mass is
 % connected to ground with an undamped natural frequency of about 1.5 rad/s.
 
-% Unknown
-%   Number/position of springs
+% Unknown: Number/position of springs
 
 %% Known
 mass             = 150;  % kg
@@ -22,7 +21,7 @@ stiffness3       = 1000; % kg/s^2
 stiffness        = [stiffness1 stiffness2 stiffness3];
 
 %% Calculations
-% w_n = sqrt(k/m) -> k = m * w_n ^ 2
+% $$ w_n = \sqrt{\f $$ -> k = m * w_n ^ 2
 stiffnessTotal = mass * frequencyNatural ^ 2;
 
 stiffness = sort(stiffness, 'descend');
@@ -41,16 +40,18 @@ end
 
 nSpringsSeries = zeros(1, length(stiffness));
 [minSpring, indexSpring] = min(stiffness);
-for n = [1 : 1 : 10]
-    nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
-    stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
-    
-    if stiffnessRemaining == 0
-        break
+if stiffnessRemaining ~= 0
+    for n = [1 : 1 : 10]
+        nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
+        stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
+        
+        if stiffnessRemaining == 0
+            break
+        end
+        
+        nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
     end
-    
-    nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
 end
 
-nSpringsParallel = [stiffness; nSpringsParallel];
-nSpringsSeries = [stiffnes
+nSpringsParallel = [stiffness; nSpringsParallel]
+nSpringsSeries = [stiffness; nSpringsSeries]

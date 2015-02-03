@@ -65,27 +65,19 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Known</a></li><li><a href="#3">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 2:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
 <span class="comment">% MAE 321 - HW 3.2</span>
 
 clear <span class="string">all</span>
 close <span class="string">all</span>
 clc
-
-<span class="comment">% Problem 2:</span>
-<span class="comment">% Springs are available in stiffness values of 10, 100, and 1000 N/m.</span>
-<span class="comment">% Design a spring system using these values only, so that a 150 kg mass is</span>
-<span class="comment">% connected to ground with an undamped natural frequency of about 1.5 rad/s.</span>
-
-<span class="comment">% Unknown</span>
-<span class="comment">%   Number/position of springs</span>
-</pre><h2>Known<a name="2"></a></h2><pre class="codeinput">mass             = 150;  <span class="comment">% kg</span>
+</pre><h2>Problem 2:<a name="2"></a></h2><p>Springs are available in stiffness values of 10, 100, and 1000 N/m. Design a spring system using these values only, so that a 150 kg mass is connected to ground with an undamped natural frequency of about 1.5 rad/s.</p><p>Unknown: Number/position of springs</p><h2>Known<a name="3"></a></h2><pre class="codeinput">mass             = 150;  <span class="comment">% kg</span>
 frequencyNatural = 1.5;  <span class="comment">% rad/s</span>
 stiffness1       = 10;   <span class="comment">% kg/s^2</span>
 stiffness2       = 100;  <span class="comment">% kg/s^2</span>
 stiffness3       = 1000; <span class="comment">% kg/s^2</span>
 stiffness        = [stiffness1 stiffness2 stiffness3];
-</pre><h2>Calculations<a name="3"></a></h2><p>w_n = sqrt(k/m) -&gt; k = m * w_n ^ 2</p><pre class="codeinput">stiffnessTotal = mass * frequencyNatural ^ 2;
+</pre><h2>Calculations<a name="4"></a></h2><p><img src="HW3_2_eq81638.png" alt="$$ w_n = \sqrt{\frac{k}{m}} $$"></p><p><img src="HW3_2_eq31572.png" alt="$$ k = mw_n ^ 2 $$"></p><pre class="codeinput">stiffnessTotal = mass * frequencyNatural ^ 2;
 
 stiffness = sort(stiffness, <span class="string">'descend'</span>);
 nSpringsParallel = zeros(1, length(stiffness));
@@ -103,15 +95,17 @@ stiffnessRemaining = stiffnessTotal;
 
 nSpringsSeries = zeros(1, length(stiffness));
 [minSpring, indexSpring] = min(stiffness);
-<span class="keyword">for</span> n = [1 : 1 : 10]
-    nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
-    stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
+<span class="keyword">if</span> stiffnessRemaining ~= 0
+    <span class="keyword">for</span> n = [1 : 1 : 10]
+        nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
+        stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
 
-    <span class="keyword">if</span> stiffnessRemaining == 0
-        <span class="keyword">break</span>
+        <span class="keyword">if</span> stiffnessRemaining == 0
+            <span class="keyword">break</span>
+        <span class="keyword">end</span>
+
+        nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
     <span class="keyword">end</span>
-
-    nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
 <span class="keyword">end</span>
 
 nSpringsParallel = [stiffness; nSpringsParallel]
@@ -138,13 +132,12 @@ clear all
 close all
 clc
 
-% Problem 2:
+%% Problem 2:
 % Springs are available in stiffness values of 10, 100, and 1000 N/m.
 % Design a spring system using these values only, so that a 150 kg mass is
 % connected to ground with an undamped natural frequency of about 1.5 rad/s.
-
-% Unknown
-%   Number/position of springs
+%
+% Unknown: Number/position of springs
 
 %% Known
 mass             = 150;  % kg
@@ -155,7 +148,9 @@ stiffness3       = 1000; % kg/s^2
 stiffness        = [stiffness1 stiffness2 stiffness3];
 
 %% Calculations
-% w_n = sqrt(k/m) -> k = m * w_n ^ 2
+% $$ w_n = \sqrt{\frac{k}{m}} $$
+%
+% $$ k = mw_n ^ 2 $$
 stiffnessTotal = mass * frequencyNatural ^ 2;
 
 stiffness = sort(stiffness, 'descend');
@@ -174,15 +169,17 @@ end
 
 nSpringsSeries = zeros(1, length(stiffness));
 [minSpring, indexSpring] = min(stiffness);
-for n = [1 : 1 : 10]
-    nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
-    stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
-    
-    if stiffnessRemaining == 0
-        break
+if stiffnessRemaining ~= 0
+    for n = [1 : 1 : 10]
+        nSpringsSeries(n, indexSpring) = ceil(minSpring / stiffnessRemaining);
+        stiffnessRemaining = stiffnessRemaining - minSpring / nSpringsSeries(n, indexSpring);
+        
+        if stiffnessRemaining == 0
+            break
+        end
+        
+        nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
     end
-    
-    nSpringsSeries = [nSpringsSeries; zeros(1, length(stiffness))];
 end
 
 nSpringsParallel = [stiffness; nSpringsParallel]
