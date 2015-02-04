@@ -59,4 +59,6 @@ nSpringsParallel = [stiffness; nSpringsParallel]
 nSpringsSeries = [stiffness; nSpringsSeries]
 
 %% Results
-% 
+% System with required behavior can be designed with 3 100 N/m and 3 10 N/m
+% springs in parallel, with 2 10 N/m springs in series, and with 4 10 N/m
+% springs in series.

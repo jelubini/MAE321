@@ -65,7 +65,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 2:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 2:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
 <span class="comment">% MAE 321 - HW 3.2</span>
 
 clear <span class="string">all</span>
@@ -123,7 +123,7 @@ nSpringsSeries =
            0           0           2
            0           0           4
 
-</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><h2>Results<a name="5"></a></h2><p>System with required behavior can be designed with 3 100 N/m and 3 10 N/m springs in parallel, with 2 10 N/m springs in series, and with 4 10 N/m springs in series.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky - 02/04/15
 % MAE 321 - HW 3.2
@@ -184,5 +184,10 @@ end
 
 nSpringsParallel = [stiffness; nSpringsParallel]
 nSpringsSeries = [stiffness; nSpringsSeries]
+
+%% Results
+% System with required behavior can be designed with 3 100 N/m and 3 10 N/m
+% springs in parallel, with 2 10 N/m springs in series, and with 4 10 N/m
+% springs in series.
 ##### SOURCE END #####
 --></body></html>

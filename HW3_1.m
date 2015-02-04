@@ -41,3 +41,6 @@ title('Underdamped Response of Spring-Mass-Damper System')
 xlabel('Time, t [s]')
 ylabel('Displacement, x(t) [m]')
 plot(time, x)
+
+%% Results
+% System is underdamped because $$ \zeta < 1 $$

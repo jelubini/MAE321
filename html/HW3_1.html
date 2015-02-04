@@ -65,7 +65,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 1:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Plot</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 1:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Plot</a></li><li><a href="#6">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/04/15</span>
 <span class="comment">% MAE 321 - HW 3.1</span>
 
 clear <span class="string">all</span>
@@ -95,7 +95,7 @@ title(<span class="string">'Underdamped Response of Spring-Mass-Damper System'</
 xlabel(<span class="string">'Time, t [s]'</span>)
 ylabel(<span class="string">'Displacement, x(t) [m]'</span>)
 plot(time, x)
-</pre><img vspace="5" hspace="5" src="HW3_1_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="HW3_1_01.png" alt=""> <h2>Results<a name="6"></a></h2><p>System is underdamped because <img src="HW3_1_eq87205.png" alt="$$ \zeta < 1 $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky - 02/04/15
 % MAE 321 - HW 3.1
@@ -141,5 +141,7 @@ xlabel('Time, t [s]')
 ylabel('Displacement, x(t) [m]')
 plot(time, x)
 
+%% Results
+% System is underdamped because $$ \zeta < 1 $$
 ##### SOURCE END #####
 --></body></html>
