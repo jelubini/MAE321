@@ -1,0 +1,8 @@
+% Joel Lubinitsky
+% 02/10/15
+% General Solution for Underdamped Response
+
+function x = xUnderdamped(xInitial, vInitial, ratioDamping, frequencyNatural, frequencyNaturalDamped, time)
+
+% Constants Based on System Parameters
+constantA = sqrt(((velocityInitial + ratioDamping * frequencyNatural * xInitial) ^ 2 + (xInitial * frequencyNaturalDamped) ^ 2) / frequencyNaturalDamped ^ 2);
