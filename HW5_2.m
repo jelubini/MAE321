@@ -28,7 +28,11 @@ clc
 % With small angle approximation,
 %
 % $$ ml^2\ddot{\theta} + \frac{cl^2}{4} \dot{\theta} + \frac{kl^2}{2} \theta - mgl \theta = 0 $$
-
+%
+% $$ kl - 2mg <0 $$, so system is still unstable by divergence.
+%
+% No forcing term dependent on velocity, so damper does not affect
+% stability of system.
 
 
 

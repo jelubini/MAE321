@@ -71,7 +71,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 clear <span class="string">all</span>
 close <span class="string">all</span>
 clc
-</pre><h2>Problem 2:<a name="2"></a></h2><p>Consider the inverted pendulum of figure 1.40 in the book. Assume that one dashpot (of damping rate c) is installed in-line with the two springs. How does this affect the stability properties of the pendulum? Your answer should include any additional restrictions on the system parameters to ensure stability.</p><p><img vspace="5" hspace="5" src="MAE321Fig1_40.PNG" alt=""> </p><p>Find: Stability of system, Requirements for stability</p><h2>Calculations<a name="3"></a></h2><p>Sum of moments around pivot</p><p><img src="HW5_2_eq58330.png" alt="$$ ml^2\ddot{\theta} = -[\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} + mgl&#xA;\sin{\theta} $$"></p><p><img src="HW5_2_eq83374.png" alt="$$ ml^2\ddot{\theta} + [\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} - mgl&#xA;\sin{\theta} = 0 $$"></p><p>With small angle approximation,</p><p><img src="HW5_2_eq37227.png" alt="$$ ml^2\ddot{\theta} + \frac{cl^2}{4} \dot{\theta} + \frac{kl^2}{2} \theta - mgl \theta = 0 $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><h2>Problem 2:<a name="2"></a></h2><p>Consider the inverted pendulum of figure 1.40 in the book. Assume that one dashpot (of damping rate c) is installed in-line with the two springs. How does this affect the stability properties of the pendulum? Your answer should include any additional restrictions on the system parameters to ensure stability.</p><p><img vspace="5" hspace="5" src="MAE321Fig1_40.PNG" alt=""> </p><p>Find: Stability of system, Requirements for stability</p><h2>Calculations<a name="3"></a></h2><p>Sum of moments around pivot</p><p><img src="HW5_2_eq58330.png" alt="$$ ml^2\ddot{\theta} = -[\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} + mgl&#xA;\sin{\theta} $$"></p><p><img src="HW5_2_eq83374.png" alt="$$ ml^2\ddot{\theta} + [\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} - mgl&#xA;\sin{\theta} = 0 $$"></p><p>With small angle approximation,</p><p><img src="HW5_2_eq37227.png" alt="$$ ml^2\ddot{\theta} + \frac{cl^2}{4} \dot{\theta} + \frac{kl^2}{2} \theta - mgl \theta = 0 $$"></p><p><img src="HW5_2_eq49583.png" alt="$$ kl - 2mg <0 $$">, so system is still unstable by divergence.</p><p>No forcing term dependent on velocity, so damper does not affect stability of system.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky - 02/18/15
 % MAE 321 - HW 5.2
@@ -103,7 +103,11 @@ clc
 % With small angle approximation,
 %
 % $$ ml^2\ddot{\theta} + \frac{cl^2}{4} \dot{\theta} + \frac{kl^2}{2} \theta - mgl \theta = 0 $$
-
+%
+% $$ kl - 2mg <0 $$, so system is still unstable by divergence.
+%
+% No forcing term dependent on velocity, so damper does not affect
+% stability of system.
 
 
 
