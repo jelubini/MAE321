@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>HW5_3</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-17"><meta name="DC.source" content="HW5_3.m"><style type="text/css">
+      --><title>HW5_3</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-18"><meta name="DC.source" content="HW5_3.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,7 +65,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 3:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Conversions</a></li><li><a href="#5">Calculations</a></li><li><a href="#6">Plots</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/18/15</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 3:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Conversions</a></li><li><a href="#5">Calculations</a></li><li><a href="#6">Plots</a></li><li><a href="#7">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/18/15</span>
 <span class="comment">% MAE 321 - HW 5.3</span>
 
 clear <span class="string">all</span>
@@ -82,24 +82,75 @@ coefficientDampingCritical = sqrt(4 * stiffness * mass);
 ratioDamping               = coefficientDamping / coefficientDampingCritical
 frequencyNatural           = sqrt(stiffness / mass);
 frequencyNaturalDamped     = frequencyNatural * sqrt(1 - ratioDamping ^ 2);
-time                       = [0 : 0.01 : 5];
+stepTime                   = 0.01;
+time                       = [0 : stepTime : 5];
 xAnalytical                = xUnderdamped(xInitial, vInitial,<span class="keyword">...</span>
                              ratioDamping, frequencyNatural,<span class="keyword">...</span>
                              frequencyNaturalDamped, time);
 
 <span class="comment">% Numerical Solution: Runge-Kutta 4</span>
     <span class="comment">% Initialize Loop</span>
-T = 5;
-dt = 0.1;
-N = T / dt;
+T        = 5;
+dt       = 0.001;
+N        = T / dt;
+vx       = zeros(N, 2);
+vx(1, :) = [vInitial, xInitial];
+
+    <span class="comment">% Run Loop</span>
+<span class="keyword">for</span> n = [1 : N - 1]
+    vx(n + 1, :) = RK4SpringMassDamper(vx(n, 1), vx(n, 2), mass,<span class="keyword">...</span>
+                   coefficientDamping, stiffness, dt);
+<span class="keyword">end</span>
+
+<span class="comment">% Redesign Damper</span>
+coefficientDampingValues = [4 * 10 ^ 3 : 5 * 10 ^ 2 : 10 * 10 ^ 3];
+xResponses               = zeros(length(time),<span class="keyword">...</span>
+                           length(coefficientDampingValues));
+xResidualAllowed         = 1 * 10 ^ -8;
+
+<span class="keyword">for</span> n = [1 : length(coefficientDampingValues)]
+
+    xResponses(:, n) = xUnderdamped(xInitial, vInitial,<span class="keyword">...</span>
+                      (coefficientDampingValues(n) /<span class="keyword">...</span>
+                       coefficientDampingCritical), frequencyNatural,<span class="keyword">...</span>
+                       frequencyNaturalDamped, time);
+
+    <span class="keyword">if</span> max(abs(xResponses(2 / stepTime : end, n))) &lt; xResidualAllowed
+        coefficientDampingSolution = coefficientDampingValues(n)
+        indexSolution              = n;
+        <span class="keyword">break</span>
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
 </pre><pre class="codeoutput">
 ratioDamping =
 
     0.0983
 
-</pre><h2>Plots<a name="6"></a></h2><pre class="codeinput">figure(1)
-plot(time, xAnalytical)
-</pre><img vspace="5" hspace="5" src="HW5_3_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+
+coefficientDampingSolution =
+
+        6500
+
+</pre><h2>Plots<a name="6"></a></h2><p>Analytical/Numerical Solutions of Response</p><pre class="codeinput">figure(1)
+hold <span class="string">on</span>
+title(<span class="string">'Underdamped Response of Spring-Mass-Damper System'</span>)
+xlabel(<span class="string">'Time, t [s]'</span>)
+ylabel(<span class="string">'Displacement, x(t) [m]'</span>)
+plot(time, xAnalytical, <span class="string">'color'</span>, [1 0 0])
+plot(linspace(0, T, N), vx(:, 2), <span class="string">'color'</span>, [0 0 1])
+legend(<span class="string">'Analytical Solution'</span>, <span class="string">'Numerical Solution (RK4)'</span>, <span class="string">'location'</span>, <span class="string">'northeast'</span>)
+
+<span class="comment">%Redesigned System</span>
+figure(2)
+hold <span class="string">on</span>
+title(<span class="string">'Redesigned System (c = 6500 kg/s)'</span>)
+xlabel(<span class="string">'Time, t [s]'</span>)
+ylabel(<span class="string">'Displacement, x(t) [m]'</span>)
+plot(time, xResponses(:, n), <span class="string">'color'</span>, [0 0 1])
+plot(time, xResidualAllowed, <span class="string">'color'</span>, [1 0 0])
+legend(<span class="string">'Damped Response'</span>, <span class="string">'Allowable Oscillation after t = 2s'</span>,<span class="string">'location'</span>, <span class="string">'northeast'</span>)
+</pre><img vspace="5" hspace="5" src="HW5_3_01.png" alt=""> <img vspace="5" hspace="5" src="HW5_3_02.png" alt=""> <h2>Results<a name="7"></a></h2><p>At a sufficiently small time step <img src="HW5_3_eq22117.png" alt="$$ dt = 0.001 $$">, the numerical and analytical responses are nearly indistinguishable. The damping coefficient required so that the response dies out after <img src="HW5_3_eq75064.png" alt="$$ 2 \ s $$"> is <img src="HW5_3_eq07073.png" alt="$$ c = 6500 \ kg/s $$">.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky - 02/18/15
 % MAE 321 - HW 5.3
@@ -147,20 +198,72 @@ coefficientDampingCritical = sqrt(4 * stiffness * mass);
 ratioDamping               = coefficientDamping / coefficientDampingCritical
 frequencyNatural           = sqrt(stiffness / mass);
 frequencyNaturalDamped     = frequencyNatural * sqrt(1 - ratioDamping ^ 2);
-time                       = [0 : 0.01 : 5];
+stepTime                   = 0.01;
+time                       = [0 : stepTime : 5];
 xAnalytical                = xUnderdamped(xInitial, vInitial,...
                              ratioDamping, frequencyNatural,...
                              frequencyNaturalDamped, time);
 
 % Numerical Solution: Runge-Kutta 4
     % Initialize Loop
-T = 5;
-dt = 0.1;
-N = T / dt;
+T        = 5;
+dt       = 0.001;
+N        = T / dt;
+vx       = zeros(N, 2);
+vx(1, :) = [vInitial, xInitial];
 
+    % Run Loop
+for n = [1 : N - 1]
+    vx(n + 1, :) = RK4SpringMassDamper(vx(n, 1), vx(n, 2), mass,...
+                   coefficientDamping, stiffness, dt);
+end
+
+% Redesign Damper
+coefficientDampingValues = [4 * 10 ^ 3 : 5 * 10 ^ 2 : 10 * 10 ^ 3];
+xResponses               = zeros(length(time),...
+                           length(coefficientDampingValues));
+xResidualAllowed         = 1 * 10 ^ -8;
+
+for n = [1 : length(coefficientDampingValues)]
+    
+    xResponses(:, n) = xUnderdamped(xInitial, vInitial,...
+                      (coefficientDampingValues(n) /...
+                       coefficientDampingCritical), frequencyNatural,...
+                       frequencyNaturalDamped, time);
+                   
+    if max(abs(xResponses(2 / stepTime : end, n))) < xResidualAllowed
+        coefficientDampingSolution = coefficientDampingValues(n)
+        indexSolution              = n;
+        break
+    end
+    
+end
 
 %% Plots
+% Analytical/Numerical Solutions of Response
 figure(1)
-plot(time, xAnalytical)
+hold on
+title('Underdamped Response of Spring-Mass-Damper System')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
+plot(time, xAnalytical, 'color', [1 0 0])
+plot(linspace(0, T, N), vx(:, 2), 'color', [0 0 1])
+legend('Analytical Solution', 'Numerical Solution (RK4)', 'location', 'northeast')
+
+%Redesigned System
+figure(2)
+hold on
+title('Redesigned System (c = 6500 kg/s)')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
+plot(time, xResponses(:, n), 'color', [0 0 1])
+plot(time, xResidualAllowed, 'color', [1 0 0])
+legend('Damped Response', 'Allowable Oscillation after t = 2s','location', 'northeast')
+
+%% Results
+% At a sufficiently small time step $$ dt = 0.001 $$, the numerical and
+% analytical responses are nearly indistinguishable. The damping
+% coefficient required so that the response dies out after $$ 2 \ s $$ is
+% $$ c = 6500 \ kg/s $$.
 ##### SOURCE END #####
 --></body></html>

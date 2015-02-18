@@ -78,7 +78,7 @@ for n = [1 : length(coefficientDampingValues)]
                        frequencyNaturalDamped, time);
                    
     if max(abs(xResponses(2 / stepTime : end, n))) < xResidualAllowed
-        coefficientDampingSolution = coefficientDampingValues(n);
+        coefficientDampingSolution = coefficientDampingValues(n)
         indexSolution              = n;
         break
     end
@@ -94,10 +94,20 @@ xlabel('Time, t [s]')
 ylabel('Displacement, x(t) [m]')
 plot(time, xAnalytical, 'color', [1 0 0])
 plot(linspace(0, T, N), vx(:, 2), 'color', [0 0 1])
-legend('Analytical Solution', 'Numerical Solution (RK4)', 'location', 'best')
+legend('Analytical Solution', 'Numerical Solution (RK4)', 'location', 'northeast')
 
 %Redesigned System
 figure(2)
 hold on
-plot(time, xResidualAllowed, 'color', [1 0 0])
+title('Redesigned System (c = 6500 kg/s)')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
 plot(time, xResponses(:, n), 'color', [0 0 1])
+plot(time, xResidualAllowed, 'color', [1 0 0])
+legend('Damped Response', 'Allowable Oscillation after t = 2s','location', 'northeast')
+
+%% Results
+% At a sufficiently small time step $$ dt = 0.001 $$, the numerical and
+% analytical responses are nearly indistinguishable. The damping
+% coefficient required so that the response dies out after $$ 2 \ s $$ is
+% $$ c = 6500 \ kg/s $$.

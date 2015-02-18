@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>HW5_1</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-18"><meta name="DC.source" content="HW5_1.m"><style type="text/css">
+      --><title>RK4SpringMassDamper</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-18"><meta name="DC.source" content="RK4SpringMassDamper.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,52 +65,63 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 1:</a></li><li><a href="#3">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/18/15</span>
-<span class="comment">% MAE 321 - HW 5.1</span>
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Joel Lubinitsky</span>
+<span class="comment">% 02/17/15</span>
+<span class="comment">% Runge-Kutta Method for Simple Spring-Mass-Damper System</span>
 
-clear <span class="string">all</span>
-close <span class="string">all</span>
-clc
-</pre><h2>Problem 1:<a name="2"></a></h2><p>Use Lagrange&#8217;s formulation to calculate the equation of motion and the natural frequency of the system of Figure P1.76. Model each of the brackets as a spring of stiffness <img src="HW5_1_eq47172.png" alt="$$ k $$">, and assume the inertia of the pulleys is negligible.</p><p><img vspace="5" hspace="5" src="MAE321Fig1_76.PNG" alt=""> </p><p>Unknown: EoM, <img src="HW5_1_eq30062.png" alt="$$ \omega_n $$"></p><h2>Calculations<a name="3"></a></h2><p>Due to geometry of system, displacement of pulleys must be <img src="HW5_1_eq73687.png" alt="$$ \frac{1}{4} $$"> the displacement of the mass. With this relation, total kinetic and potential energy are</p><p><img src="HW5_1_eq30076.png" alt="$$ T = \frac{1}{2}m\dot{x}^2 $$"></p><p><img src="HW5_1_eq41685.png" alt="$$ U = \frac{1}{2}k\frac{x}{4}^2 \ + \ \frac{1}{2}k\frac{x}{4}^2 =&#xA;\frac{1}{16}kx^2 $$"></p><p><img src="HW5_1_eq25952.png" alt="$$ L = T - U = \frac{1}{2}m\dot{x}^2 - \frac{1}{16}kx^2 $$"></p><p><img src="HW5_1_eq80047.png" alt="$$ \frac{d}{dt}(\frac{\partial L}{\partial \dot{x}}) - \frac{\partial&#xA;L}{\partial x} = 0 $$"></p><p><img src="HW5_1_eq50468.png" alt="$$ m\ddot{x} + \frac{1}{8}kx = 0 $$"></p><p><img src="HW5_1_eq16703.png" alt="$$ \ddot{x} + \frac{k}{8m}x = 0 $$"></p><p><img src="HW5_1_eq48585.png" alt="$$ \omega_n^2 $$"> is the coefficient of the displacement, so</p><p><img src="HW5_1_eq14090.png" alt="$$ \omega_n = \sqrt{\frac{k}{8m}} $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+<span class="keyword">function</span> vxNext = RK4SpringMassDamper(velocity, x, mass,<span class="keyword">...</span>
+                  coefficientDamping, stiffness, dt)
+
+<span class="comment">% Calculate Slopes, K_1-4</span>
+vK1 = -(coefficientDamping * velocity / mass)                    <span class="keyword">...</span>
+      - (stiffness * x / mass);
+vK2 = -(coefficientDamping * (velocity + (dt * vK1 / 2)) / mass) <span class="keyword">...</span>
+      - (stiffness * x / mass);
+vK3 = -(coefficientDamping * (velocity + (dt * vK2 / 2)) / mass) <span class="keyword">...</span>
+      - (stiffness * x / mass);
+vK4 = -(coefficientDamping * (velocity + (dt * vK3))     / mass) <span class="keyword">...</span>
+      - (stiffness * x / mass);
+
+xK1 =   velocity;
+xK2 =   velocity + (dt * vK1 / 2);
+xK3 =   velocity + (dt * vK2 / 2);
+xK4 =   velocity + (dt * vK3);
+
+<span class="comment">% Apply Weighted Average of Increments to Previous Term</span>
+vNext  = velocity + (dt / 6) * (vK1 + (2 * vK2) + (2 * vK3) + vK4);
+xNext  = x        + (dt / 6) * (xK1 + (2 * xK2) + (2 * xK3) + xK4);
+vxNext = [vNext, xNext];
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Error using RK4SpringMassDamper (line 9)
+Not enough input arguments.
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-% Joel Lubinitsky - 02/18/15
-% MAE 321 - HW 5.1
+% Joel Lubinitsky
+% 02/17/15
+% Runge-Kutta Method for Simple Spring-Mass-Damper System
 
-clear all
-close all
-clc
+function vxNext = RK4SpringMassDamper(velocity, x, mass,...
+                  coefficientDamping, stiffness, dt)
 
-%% Problem 1:
-% Use Lagrange’s formulation to calculate the equation of motion and the
-% natural frequency of the system of Figure P1.76. Model each of the
-% brackets as a spring of stiffness $$ k $$, and assume the inertia of the
-% pulleys is negligible.
-%
-% <<MAE321Fig1_76.PNG>>
-%
-% Unknown: EoM, $$ \omega_n $$
+% Calculate Slopes, K_1-4
+vK1 = -(coefficientDamping * velocity / mass)                    ...
+      - (stiffness * x / mass);
+vK2 = -(coefficientDamping * (velocity + (dt * vK1 / 2)) / mass) ...
+      - (stiffness * x / mass);
+vK3 = -(coefficientDamping * (velocity + (dt * vK2 / 2)) / mass) ...
+      - (stiffness * x / mass);
+vK4 = -(coefficientDamping * (velocity + (dt * vK3))     / mass) ...
+      - (stiffness * x / mass);
+  
+xK1 =   velocity;
+xK2 =   velocity + (dt * vK1 / 2);
+xK3 =   velocity + (dt * vK2 / 2);
+xK4 =   velocity + (dt * vK3);
 
-%% Calculations
-% Due to geometry of system, displacement of pulleys must be $$ \frac{1}{4}
-% $$ the displacement of the mass. With this relation, total kinetic and
-% potential energy are
-%
-% $$ T = \frac{1}{2}m\dot{x}^2 $$
-%
-% $$ U = \frac{1}{2}k\frac{x}{4}^2 \ + \ \frac{1}{2}k\frac{x}{4}^2 =
-% \frac{1}{16}kx^2 $$
-%
-% $$ L = T - U = \frac{1}{2}m\dot{x}^2 - \frac{1}{16}kx^2 $$
-%
-% $$ \frac{d}{dt}(\frac{\partial L}{\partial \dot{x}}) - \frac{\partial
-% L}{\partial x} = 0 $$
-%
-% $$ m\ddot{x} + \frac{1}{8}kx = 0 $$
-%
-% $$ \ddot{x} + \frac{k}{8m}x = 0 $$
-%
-% $$ \omega_n^2 $$ is the coefficient of the displacement, so
-%
-% $$ \omega_n = \sqrt{\frac{k}{8m}} $$
+% Apply Weighted Average of Increments to Previous Term
+vNext  = velocity + (dt / 6) * (vK1 + (2 * vK2) + (2 * vK3) + vK4);
+xNext  = x        + (dt / 6) * (xK1 + (2 * xK2) + (2 * xK3) + xK4);
+vxNext = [vNext, xNext];
+end
 ##### SOURCE END #####
 --></body></html>

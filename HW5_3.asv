@@ -52,10 +52,10 @@ xAnalytical                = xUnderdamped(xInitial, vInitial,...
 
 % Numerical Solution: Runge-Kutta 4
     % Initialize Loop
-T = 5;
-dt = 0.001;
-N = T / dt;
-vx = zeros(N, 2);
+T        = 5;
+dt       = 0.001;
+N        = T / dt;
+vx       = zeros(N, 2);
 vx(1, :) = [vInitial, xInitial];
 
     % Run Loop
@@ -78,7 +78,7 @@ for n = [1 : length(coefficientDampingValues)]
                        frequencyNaturalDamped, time);
                    
     if max(abs(xResponses(2 / stepTime : end, n))) < xResidualAllowed
-        coefficientDampingSolution = coefficientDampingValues(n);
+        coefficientDampingSolution = coefficientDampingValues(n)
         indexSolution              = n;
         break
     end
@@ -92,13 +92,20 @@ hold on
 title('Underdamped Response of Spring-Mass-Damper System')
 xlabel('Time, t [s]')
 ylabel('Displacement, x(t) [m]')
-%axis([0 5 (-6 * 10 ^ -7) (8 * 10 ^ -7)])
 plot(time, xAnalytical, 'color', [1 0 0])
 plot(linspace(0, T, N), vx(:, 2), 'color', [0 0 1])
-legend('Analytical Solution', 'Numerical Solution (RK4)', 'location', 'best')
+legend('Analytical Solution', 'Numerical Solution (RK4)', 'location', 'northeast')
 
 %Redesigned System
 figure(2)
 hold on
-plot(time, xResidualAllowed, 'color', [1 0 0])
+title('Redesigned System (c = )')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
 plot(time, xResponses(:, n), 'color', [0 0 1])
+plot(time, xResidualAllowed, 'color', [1 0 0])
+legend('Damped Response', 'Allowable Oscillation after t = 2s','location', 'northeast')
+
+%% Results
+% At a sufficiently small time step $$ dt = 0.001 $$, the numerical and
+% analy

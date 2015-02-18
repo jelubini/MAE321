@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>HW5_1</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-18"><meta name="DC.source" content="HW5_1.m"><style type="text/css">
+      --><title>HW5_2</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-18"><meta name="DC.source" content="HW5_2.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,52 +65,48 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 1:</a></li><li><a href="#3">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/18/15</span>
-<span class="comment">% MAE 321 - HW 5.1</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 2:</a></li><li><a href="#3">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky - 02/18/15</span>
+<span class="comment">% MAE 321 - HW 5.2</span>
 
 clear <span class="string">all</span>
 close <span class="string">all</span>
 clc
-</pre><h2>Problem 1:<a name="2"></a></h2><p>Use Lagrange&#8217;s formulation to calculate the equation of motion and the natural frequency of the system of Figure P1.76. Model each of the brackets as a spring of stiffness <img src="HW5_1_eq47172.png" alt="$$ k $$">, and assume the inertia of the pulleys is negligible.</p><p><img vspace="5" hspace="5" src="MAE321Fig1_76.PNG" alt=""> </p><p>Unknown: EoM, <img src="HW5_1_eq30062.png" alt="$$ \omega_n $$"></p><h2>Calculations<a name="3"></a></h2><p>Due to geometry of system, displacement of pulleys must be <img src="HW5_1_eq73687.png" alt="$$ \frac{1}{4} $$"> the displacement of the mass. With this relation, total kinetic and potential energy are</p><p><img src="HW5_1_eq30076.png" alt="$$ T = \frac{1}{2}m\dot{x}^2 $$"></p><p><img src="HW5_1_eq41685.png" alt="$$ U = \frac{1}{2}k\frac{x}{4}^2 \ + \ \frac{1}{2}k\frac{x}{4}^2 =&#xA;\frac{1}{16}kx^2 $$"></p><p><img src="HW5_1_eq25952.png" alt="$$ L = T - U = \frac{1}{2}m\dot{x}^2 - \frac{1}{16}kx^2 $$"></p><p><img src="HW5_1_eq80047.png" alt="$$ \frac{d}{dt}(\frac{\partial L}{\partial \dot{x}}) - \frac{\partial&#xA;L}{\partial x} = 0 $$"></p><p><img src="HW5_1_eq50468.png" alt="$$ m\ddot{x} + \frac{1}{8}kx = 0 $$"></p><p><img src="HW5_1_eq16703.png" alt="$$ \ddot{x} + \frac{k}{8m}x = 0 $$"></p><p><img src="HW5_1_eq48585.png" alt="$$ \omega_n^2 $$"> is the coefficient of the displacement, so</p><p><img src="HW5_1_eq14090.png" alt="$$ \omega_n = \sqrt{\frac{k}{8m}} $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><h2>Problem 2:<a name="2"></a></h2><p>Consider the inverted pendulum of figure 1.40 in the book. Assume that one dashpot (of damping rate c) is installed in-line with the two springs. How does this affect the stability properties of the pendulum? Your answer should include any additional restrictions on the system parameters to ensure stability.</p><p><img vspace="5" hspace="5" src="MAE321Fig1_40.PNG" alt=""> </p><p>Find: Stability of system, Requirements for stability</p><h2>Calculations<a name="3"></a></h2><p>Sum of moments around pivot</p><p><img src="HW5_2_eq58330.png" alt="$$ ml^2\ddot{\theta} = -[\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} + mgl&#xA;\sin{\theta} $$"></p><p><img src="HW5_2_eq83374.png" alt="$$ ml^2\ddot{\theta} + [\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} - mgl&#xA;\sin{\theta} = 0 $$"></p><p>With small angle approximation,</p><p><img src="HW5_2_eq37227.png" alt="$$ ml^2\ddot{\theta} + \frac{cl^2}{4} \dot{\theta} + \frac{kl^2}{2} \theta - mgl \theta = 0 $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky - 02/18/15
-% MAE 321 - HW 5.1
+% MAE 321 - HW 5.2
 
 clear all
 close all
 clc
 
-%% Problem 1:
-% Use Lagrange’s formulation to calculate the equation of motion and the
-% natural frequency of the system of Figure P1.76. Model each of the
-% brackets as a spring of stiffness $$ k $$, and assume the inertia of the
-% pulleys is negligible.
+%% Problem 2:
+% Consider the inverted pendulum of figure 1.40 in the book. Assume that
+% one dashpot (of damping rate c) is installed in-line with the two
+% springs. How does this affect the stability properties of the pendulum?
+% Your answer should include any additional restrictions on the system
+% parameters to ensure stability.
 %
-% <<MAE321Fig1_76.PNG>>
+% <<MAE321Fig1_40.PNG>>
 %
-% Unknown: EoM, $$ \omega_n $$
+% Find: Stability of system, Requirements for stability
 
 %% Calculations
-% Due to geometry of system, displacement of pulleys must be $$ \frac{1}{4}
-% $$ the displacement of the mass. With this relation, total kinetic and
-% potential energy are
+% Sum of moments around pivot
 %
-% $$ T = \frac{1}{2}m\dot{x}^2 $$
+% $$ ml^2\ddot{\theta} = -[\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} + mgl
+% \sin{\theta} $$
 %
-% $$ U = \frac{1}{2}k\frac{x}{4}^2 \ + \ \frac{1}{2}k\frac{x}{4}^2 =
-% \frac{1}{16}kx^2 $$
+% $$ ml^2\ddot{\theta} + [\frac{kl^2}{2} \sin{\theta} + \frac{cl^2}{4} \sin{\dot{\theta}}] \cos{\theta} - mgl
+% \sin{\theta} = 0 $$
 %
-% $$ L = T - U = \frac{1}{2}m\dot{x}^2 - \frac{1}{16}kx^2 $$
+% With small angle approximation,
 %
-% $$ \frac{d}{dt}(\frac{\partial L}{\partial \dot{x}}) - \frac{\partial
-% L}{\partial x} = 0 $$
-%
-% $$ m\ddot{x} + \frac{1}{8}kx = 0 $$
-%
-% $$ \ddot{x} + \frac{k}{8m}x = 0 $$
-%
-% $$ \omega_n^2 $$ is the coefficient of the displacement, so
-%
-% $$ \omega_n = \sqrt{\frac{k}{8m}} $$
+% $$ ml^2\ddot{\theta} + \frac{cl^2}{4} \dot{\theta} + \frac{kl^2}{2} \theta - mgl \theta = 0 $$
+
+
+
+
+
 ##### SOURCE END #####
 --></body></html>

@@ -34,6 +34,4 @@ clc
 %
 % $$ \ddot{x} + \frac{k}{8m}x = 0 $$
 %
-% $$ \omega_n^2 $$ is the coefficient of the displacement, so
-%
-% $$ \omega_n = \sqrt{\frac{k}{8m}} $$
+% $$ \omega_n^2 $$ is the coefficient of the displacement.
