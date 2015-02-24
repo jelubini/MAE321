@@ -56,6 +56,37 @@ vInitial   = 0;   % m/s
 % L}{\partial x} = 0 $$
 %
 % $$ (\frac{1}{8}m + m_1)\ddot{x} + (\frac{1}{4}k + k_1)x = 0 $$
+%
+% $$ \ddot{x} + (\frac{\frac{1}{4}k + k_1}{\frac{1}{8}m + m_1})x = 0 $$
+%
+% $$ \omega_n = \sqrt{\frac{\frac{1}{4}k + k_1}{\frac{1}{8}m + m_1}} $$
 
-time = linspace(0, 5, 100);
-% x    = 
+frequencyNaturalEoM = sqrt((0.25 * stiffness + stiffness1) /...
+                           (mass / 8 + mass1))
+time                = linspace(0, 10, 1000);
+x                   = xUndamped(xInitial, vInitial, frequencyNaturalEoM, time);
+[peak1, indexPeak1] = max(x(200:400));
+indexPeak1          = 199 + indexPeak1;
+[peak2, indexPeak2] = max(x(500:700));
+indexPeak2          = 499 + indexPeak2;
+frequencyNaturalEst = (2 * pi) / (time(indexPeak2) - time(indexPeak1))
+
+
+%% Plot
+figure(1)
+hold on
+axis([0 10 -0.11 0.11])
+title('Undamped Response of System')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
+plot(time, x)
+plot(time(indexPeak1), x(indexPeak1), 'o', 'color', [1 0 0])
+plot(time(indexPeak2), x(indexPeak2), 'o', 'color', [1 0 0])
+
+%% Results
+% The natural frequency obtained from coefficients of the equation of
+% motion is $$ \omega_n = 2.0976 \ rad/s $$ and the natural frequency estimated
+% from the plot of the response is $$ \omega_n = 2.0993 \ rad/s $$. These numbers
+% are very close, and theoretically should be the same. The difference in
+% the values can be accounted for by error caused by a time step that is
+% too large in the plot.

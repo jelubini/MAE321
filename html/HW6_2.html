@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>HW6_2</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-22"><meta name="DC.source" content="HW6_2.m"><style type="text/css">
+      --><title>HW6_2</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-24"><meta name="DC.source" content="HW6_2.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,7 +65,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 2:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 2:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Plot</a></li><li><a href="#6">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky</span>
 <span class="comment">% MAE 231 - HW6.2</span>
 <span class="comment">% 02/25/15</span>
 
@@ -79,9 +79,35 @@ stiffness1 = 5;   <span class="comment">% N/m</span>
 radius     = 0.3; <span class="comment">% m</span>
 xInitial   = 0.1; <span class="comment">% m</span>
 vInitial   = 0;   <span class="comment">% m/s</span>
-</pre><h2>Calculations<a name="4"></a></h2><p><img src="HW6_2_eq66226.png" alt="$$ \xi = \frac{x}{2}, \ x = 2R\theta $$"></p><p><img src="HW6_2_eq77437.png" alt="$$ T = \frac{1}{2}m_1\dot{x}^2  + \frac{1}{2}J\dot{\theta}^2 =&#xA;\frac{1}{2}m_1\dot{x}^2 + \frac{1}{16}m\dot{x}^2 $$"></p><p><img src="HW6_2_eq91765.png" alt="$$ U = \frac{1}{2}k\xi^2 + \frac{1}{2}k_1x^2 = \frac{1}{8}kx^2 +&#xA;\frac{1}{2}k_1x^2 $$"></p><p><img src="HW6_2_eq47991.png" alt="$$ L = T - U = \frac{1}{2}m_1\dot{x}^2 + \frac{1}{16}m\dot{x}^2 -&#xA;\frac{1}{8}kx^2 - \frac{1}{2}k_1x^2 $$"></p><p><img src="HW6_2_eq80047.png" alt="$$ \frac{d}{dt}(\frac{\partial L}{\partial \dot{x}}) - \frac{\partial&#xA;L}{\partial x} = 0 $$"></p><p><img src="HW6_2_eq25756.png" alt="$$ (\frac{1}{8}m + m_1)\ddot{x} + (\frac{1}{4}k + k_1)x = 0 $$"></p><pre class="codeinput">time = linspace(0, 5, 100);
-<span class="comment">% x    =</span>
-</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><h2>Calculations<a name="4"></a></h2><p><img src="HW6_2_eq66226.png" alt="$$ \xi = \frac{x}{2}, \ x = 2R\theta $$"></p><p><img src="HW6_2_eq77437.png" alt="$$ T = \frac{1}{2}m_1\dot{x}^2  + \frac{1}{2}J\dot{\theta}^2 =&#xA;\frac{1}{2}m_1\dot{x}^2 + \frac{1}{16}m\dot{x}^2 $$"></p><p><img src="HW6_2_eq91765.png" alt="$$ U = \frac{1}{2}k\xi^2 + \frac{1}{2}k_1x^2 = \frac{1}{8}kx^2 +&#xA;\frac{1}{2}k_1x^2 $$"></p><p><img src="HW6_2_eq47991.png" alt="$$ L = T - U = \frac{1}{2}m_1\dot{x}^2 + \frac{1}{16}m\dot{x}^2 -&#xA;\frac{1}{8}kx^2 - \frac{1}{2}k_1x^2 $$"></p><p><img src="HW6_2_eq80047.png" alt="$$ \frac{d}{dt}(\frac{\partial L}{\partial \dot{x}}) - \frac{\partial&#xA;L}{\partial x} = 0 $$"></p><p><img src="HW6_2_eq25756.png" alt="$$ (\frac{1}{8}m + m_1)\ddot{x} + (\frac{1}{4}k + k_1)x = 0 $$"></p><p><img src="HW6_2_eq73021.png" alt="$$ \ddot{x} + (\frac{\frac{1}{4}k + k_1}{\frac{1}{8}m + m_1})x = 0 $$"></p><p><img src="HW6_2_eq20355.png" alt="$$ \omega_n = \sqrt{\frac{\frac{1}{4}k + k_1}{\frac{1}{8}m + m_1}} $$"></p><pre class="codeinput">frequencyNaturalEoM = sqrt((0.25 * stiffness + stiffness1) /<span class="keyword">...</span>
+                           (mass / 8 + mass1))
+time                = linspace(0, 10, 1000);
+x                   = xUndamped(xInitial, vInitial, frequencyNaturalEoM, time);
+[peak1, indexPeak1] = max(x(200:400));
+indexPeak1          = 199 + indexPeak1;
+[peak2, indexPeak2] = max(x(500:700));
+indexPeak2          = 499 + indexPeak2;
+frequencyNaturalEst = (2 * pi) / (time(indexPeak2) - time(indexPeak1))
+</pre><pre class="codeoutput">
+frequencyNaturalEoM =
+
+    2.0976
+
+
+frequencyNaturalEst =
+
+    2.0993
+
+</pre><h2>Plot<a name="5"></a></h2><pre class="codeinput">figure(1)
+hold <span class="string">on</span>
+axis([0 10 -0.11 0.11])
+title(<span class="string">'Undamped Response of System'</span>)
+xlabel(<span class="string">'Time, t [s]'</span>)
+ylabel(<span class="string">'Displacement, x(t) [m]'</span>)
+plot(time, x)
+plot(time(indexPeak1), x(indexPeak1), <span class="string">'o'</span>, <span class="string">'color'</span>, [1 0 0])
+plot(time(indexPeak2), x(indexPeak2), <span class="string">'o'</span>, <span class="string">'color'</span>, [1 0 0])
+</pre><img vspace="5" hspace="5" src="HW6_2_01.png" alt=""> <h2>Results<a name="6"></a></h2><p>The natural frequency obtained from coefficients of the equation of motion is <img src="HW6_2_eq44863.png" alt="$$ \omega_n = 2.0976 \ rad/s $$"> and the natural frequency estimated from the plot of the response is <img src="HW6_2_eq04322.png" alt="$$ \omega_n = 2.0993 \ rad/s $$">. These numbers are very close, and theoretically should be the same. The difference in the values can be accounted for by error caused by a time step that is too large in the plot.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky
 % MAE 231 - HW6.2
@@ -141,8 +167,40 @@ vInitial   = 0;   % m/s
 % L}{\partial x} = 0 $$
 %
 % $$ (\frac{1}{8}m + m_1)\ddot{x} + (\frac{1}{4}k + k_1)x = 0 $$
+%
+% $$ \ddot{x} + (\frac{\frac{1}{4}k + k_1}{\frac{1}{8}m + m_1})x = 0 $$
+%
+% $$ \omega_n = \sqrt{\frac{\frac{1}{4}k + k_1}{\frac{1}{8}m + m_1}} $$
 
-time = linspace(0, 5, 100);
-% x    = 
+frequencyNaturalEoM = sqrt((0.25 * stiffness + stiffness1) /...
+                           (mass / 8 + mass1))
+time                = linspace(0, 10, 1000);
+x                   = xUndamped(xInitial, vInitial, frequencyNaturalEoM, time);
+[peak1, indexPeak1] = max(x(200:400));
+indexPeak1          = 199 + indexPeak1;
+[peak2, indexPeak2] = max(x(500:700));
+indexPeak2          = 499 + indexPeak2;
+frequencyNaturalEst = (2 * pi) / (time(indexPeak2) - time(indexPeak1))
+
+
+%% Plot
+figure(1)
+hold on
+axis([0 10 -0.11 0.11])
+title('Undamped Response of System')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
+plot(time, x)
+plot(time(indexPeak1), x(indexPeak1), 'o', 'color', [1 0 0])
+plot(time(indexPeak2), x(indexPeak2), 'o', 'color', [1 0 0])
+
+%% Results
+% The natural frequency obtained from coefficients of the equation of
+% motion is $$ \omega_n = 2.0976 \ rad/s $$ and the natural frequency estimated
+% from the plot of the response is $$ \omega_n = 2.0993 \ rad/s $$. These numbers
+% are very close, and theoretically should be the same. The difference in
+% the values can be accounted for by error caused by a time step that is
+% too large in the plot.
+
 ##### SOURCE END #####
 --></body></html>
