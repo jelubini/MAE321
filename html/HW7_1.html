@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>HW7_1</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-03-01"><meta name="DC.source" content="HW7_1.m"><style type="text/css">
+      --><title>HW7_1</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-03-03"><meta name="DC.source" content="HW7_1.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -65,14 +65,19 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 1:</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky</span>
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 1:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky</span>
 <span class="comment">% MAE 231 - HW7.1</span>
 <span class="comment">% 03/04/15</span>
 
 clear <span class="string">all</span>
 close <span class="string">all</span>
 clc
-</pre><h2>Problem 1:<a name="2"></a></h2><p>An <img src="HW7_1_eq10449.png" alt="$$ 85 kg $$"> mass is suspended by a spring of stiffness <img src="HW7_1_eq17286.png" alt="$$ 20 \times 103 \ N/m $$"> with a viscous damping constant of <img src="HW7_1_eq23524.png" alt="$$ 1200 Ns/m $$">. The mass is initially at rest and in equilibrium. Calculate the steady-state displacement amplitude and phase if the mass is excited by a harmonic force of <img src="HW7_1_eq03176.png" alt="$$ 75 N $$"> at <img src="HW7_1_eq70765.png" alt="$$ 3 Hz $$">.</p><p>Find: <img src="HW7_1_eq81997.png" alt="$$ x, \phi $$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+</pre><h2>Problem 1:<a name="2"></a></h2><p>An <img src="HW7_1_eq10449.png" alt="$$ 85 kg $$"> mass is suspended by a spring of stiffness <img src="HW7_1_eq63344.png" alt="$$ 20 \times 10^3 \ N/m $$"> with a viscous damping constant of <img src="HW7_1_eq23524.png" alt="$$ 1200 Ns/m $$">. The mass is initially at rest and in equilibrium. Calculate the steady-state displacement amplitude and phase if the mass is excited by a harmonic force of <img src="HW7_1_eq03176.png" alt="$$ 75 N $$"> at <img src="HW7_1_eq70765.png" alt="$$ 3 Hz $$">.</p><p>Find: <img src="HW7_1_eq81997.png" alt="$$ x, \phi $$"></p><h2>Known<a name="3"></a></h2><p><img src="HW7_1_eq47083.png" alt="$$ m, \ k, \ c, \ F_0, \ f $$"></p><pre class="codeinput">mass            = 85;
+stiffness       = 20 * 10 ^ 3;
+constantDamping = 1200;
+xInitial        = 0;
+vInitial        = 0;
+</pre><h2>Calculations<a name="4"></a></h2><p><img src="HW7_1_eq16385.png" alt="$$ f_0 = \frac{F_0}{m} $$"></p><p><img src="HW7_1_eq88621.png" alt="$$ \omega_n = \sqrt{\frac{k}{m}} $$"></p><p><img src="HW7_1_eq74811.png" alt="$$ c_{cr} = \sqrt{4km} $$"></p><p><img src="HW7_1_eq20169.png" alt="$$ \zeta = \frac{c}{c_{cr}} $$"></p><p><img src="HW7_1_eq06281.png" alt="$$ \omega = 2 \pi f $$"></p><p><img src="HW7_1_eq89007.png" alt="$$ X = \frac{f_0}{\sqrt{(\omega_n^2 - \omega^2)^2  + (2 \zeta \omega_n&#xA;\omega)^2}} $$"></p><p><img src="HW7_1_eq52788.png" alt="$$ \theta = \arctan{\frac{2 \zeta \omega_n \omega}{\omega_n^2 - \omega^2}}&#xA;$$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % Joel Lubinitsky
 % MAE 231 - HW7.1
@@ -83,12 +88,38 @@ close all
 clc
 
 %% Problem 1:
-% An $$ 85 kg $$ mass is suspended by a spring of stiffness $$ 20 \times 103 \
-% N/m $$ with a viscous damping constant of $$ 1200 Ns/m $$. The mass is
-% initially at rest and in equilibrium. Calculate the steady-state
+% An $$ 85 kg $$ mass is suspended by a spring of stiffness $$ 20 \times
+% 10^3 \ N/m $$ with a viscous damping constant of $$ 1200 Ns/m $$. The
+% mass is initially at rest and in equilibrium. Calculate the steady-state
 % displacement amplitude and phase if the mass is excited by a harmonic
 % force of $$ 75 N $$ at $$ 3 Hz $$.
 %
 % Find: $$ x, \phi $$
+
+%% Known
+% $$ m, \ k, \ c, \ F_0, \ f $$
+mass            = 85;
+stiffness       = 20 * 10 ^ 3;
+constantDamping = 1200;
+xInitial        = 0;
+vInitial        = 0;
+
+%% Calculations
+% $$ f_0 = \frac{F_0}{m} $$
+%
+% $$ \omega_n = \sqrt{\frac{k}{m}} $$
+%
+% $$ c_{cr} = \sqrt{4km} $$
+%
+% $$ \zeta = \frac{c}{c_{cr}} $$
+%
+%
+% $$ \omega = 2 \pi f $$
+%
+% $$ X = \frac{f_0}{\sqrt{(\omega_n^2 - \omega^2)^2  + (2 \zeta \omega_n
+% \omega)^2}} $$
+%
+% $$ \theta = \arctan{\frac{2 \zeta \omega_n \omega}{\omega_n^2 - \omega^2}}
+% $$
 ##### SOURCE END #####
 --></body></html>
