@@ -1,0 +1,254 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW9_4</title><meta name="generator" content="MATLAB 8.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-03-24"><meta name="DC.source" content="HW9_4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 4:</a></li><li><a href="#3">Known</a></li><li><a href="#4">Calculations</a></li><li><a href="#5">Plots</a></li><li><a href="#6">Results</a></li></ul></div><pre class="codeinput"><span class="comment">% Joel Lubinitsky</span>
+<span class="comment">% MAE 321 - HW9.4</span>
+<span class="comment">% 03/25/15</span>
+
+clear <span class="string">all</span>
+close <span class="string">all</span>
+clc
+</pre><h2>Problem 4:<a name="2"></a></h2><p>A DVD drive is mounted on a chassis and is modeled as a single-degree-of-freedom spring, mass, and damper. During normal operation, the drive (having a mass of 0.4 kg) is subject to a harmonic force of 1 N at 10 rad/s. Because of material considerations and static deflection, the stiffness is fixed at 500 N/m and the natural damping in the system is 10 kg/s. The DVD player starts and stops during its normal operation providing initial conditions to the module of <img src="HW9_4_eq20483.png" alt="$$ x_0 $$"> = 0.001 m and <img src="HW9_4_eq64250.png" alt="$$ v _0 $$"> = 0.5 m/s. The DVD drive must not have an amplitude of vibration larger then 0.008 m even during the transient stage. First, compute the response by numerical simulation to see if the constraint is satisfied. If the constraint is not satisfied, find the smallest value of damping that will keep the deflection less than 0.008 m.</p><p>Find: Response, smallest c</p><h2>Known<a name="3"></a></h2><p><img src="HW9_4_eq55557.png" alt="$$ m, \ F(t), \ k, \ c, \ x_0, \ v_0, X_{max} $$"></p><pre class="codeinput">mass               = 0.4;
+funForcing         = @(t) cos(10 .* t);
+stiffness          = 500;
+coefficientDamping = 10;
+xInitial           = 0.001;
+vInitial           = 0.5;
+xMax               = 0.008;
+</pre><h2>Calculations<a name="4"></a></h2><p><img src="HW9_4_eq05079.png" alt="$$ m \ddot{x} + c \dot{x} + kx = \cos{10t} $$"></p><p>Rewrite as system of first order ODEs:</p><p><img src="HW9_4_eq16356.png" alt="$$ \dot{v} = \frac{1}{m} \cos{10t} - \frac{c}{m}v - \frac{k}{m}x $$"></p><p><img src="HW9_4_eq31326.png" alt="$$ \dot{x} = v $$"></p><p>Apply RK4:</p><pre class="codeinput"><span class="comment">% Initialize System</span>
+T        = 2;
+dt       = 0.001;
+N        = T / dt;
+times    = linspace(0, T, N);
+vx       = zeros(N, 2);
+vx(1, 2) = xInitial;
+vx(1, 1) = vInitial;
+
+<span class="comment">% Run RK4 Integrator</span>
+<span class="keyword">for</span> n = [1 : N - 1] <span class="comment">% n step through time</span>
+
+    time = (n - 1) * dt;
+
+    vx(n + 1, :) = RK4SpringMassDamperForced(vx(n, 1), vx(n, 2), mass, <span class="keyword">...</span>
+                   coefficientDamping, stiffness, dt, funForcing, time);
+
+<span class="keyword">end</span> <span class="comment">% n</span>
+
+xMaxTest = max(vx(:, 2))
+
+<span class="comment">% Initialize New System</span>
+vxNew                 = zeros(N, 2);
+vxNew(1, 2)           = xInitial;
+vxNew(1, 1)           = vInitial;
+coefficientDampingNew = [19 : 0.1 : 21];
+
+<span class="comment">% Run RK4 Integrator for New C Values</span>
+<span class="keyword">for</span> c = coefficientDampingNew <span class="comment">% c step through damping coefficients</span>
+    <span class="keyword">for</span> n = [1 : N - 1] <span class="comment">% n step through time</span>
+
+        time = (n - 1) * dt;
+
+        vxNew(n + 1, :) = RK4SpringMassDamperForced(vxNew(n, 1), vxNew(n, 2), mass, <span class="keyword">...</span>
+                          c, stiffness, dt, funForcing, time);
+
+    <span class="keyword">end</span> <span class="comment">% n</span>
+
+    <span class="keyword">if</span> max(vxNew(:, 2)) &lt; xMax
+        coefficientDampingSelected = c;
+        <span class="keyword">break</span>
+    <span class="keyword">end</span> <span class="comment">% if</span>
+
+<span class="keyword">end</span> <span class="comment">% c</span>
+
+strSelected = strcat(<span class="string">'c = '</span>, num2str(coefficientDampingSelected), <span class="string">' kg/s (Adjusted)'</span>);
+</pre><pre class="codeoutput">
+xMaxTest =
+
+    0.0106
+
+</pre><h2>Plots<a name="5"></a></h2><pre class="codeinput">figure(1)
+hold <span class="string">on</span>
+title(<span class="string">'Underdamped Forced Response (Initial and Adjusted)'</span>)
+xlabel(<span class="string">'Time, t [s]'</span>)
+ylabel(<span class="string">'Displacement, x(t) [m]'</span>)
+plot(times, repmat(xMax, 1, length(times)), <span class="string">'color'</span>, [1 0 0])
+plot(times, vx(:, 2), <span class="string">'color'</span>, [0 1 0])
+plot(times, vxNew(:, 2), <span class="string">'color'</span>, [0 0 1])
+legend(<span class="string">'Maximum Amplitude Allowable'</span>, <span class="string">'c = 10 kg/s (Initial)'</span>, strSelected)
+</pre><img vspace="5" hspace="5" src="HW9_4_01.png" alt=""> <h2>Results<a name="6"></a></h2><p>The original damping coefficient, c = 10 kg/s does not satisfy the system's constraints. Integrating through the response with a time step, dt = 0.001, and iterating through damping coefficients with a resolution of 0.1 kg/s, the minimum allowable damping coefficient is found to be c = 19.4 kg/s.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2012b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Joel Lubinitsky
+% MAE 321 - HW9.4
+% 03/25/15
+
+clear all
+close all
+clc
+
+%% Problem 4:
+% A DVD drive is mounted on a chassis and is modeled as a
+% single-degree-of-freedom spring, mass, and damper. During normal
+% operation, the drive (having a mass of 0.4 kg) is subject to a harmonic
+% force of 1 N at 10 rad/s. Because of material considerations and static
+% deflection, the stiffness is fixed at 500 N/m and the natural damping in
+% the system is 10 kg/s. The DVD player starts and stops during its normal
+% operation providing initial conditions to the module of $$ x_0 $$ = 0.001
+% m and $$ v _0 $$ = 0.5 m/s. The DVD drive must not have an amplitude of
+% vibration larger then 0.008 m even during the transient stage. First,
+% compute the response by numerical simulation to see if the constraint is
+% satisfied. If the constraint is not satisfied, find the smallest value of
+% damping that will keep the deflection less than 0.008 m.
+%
+% Find: Response, smallest c
+
+%% Known
+% $$ m, \ F(t), \ k, \ c, \ x_0, \ v_0, X_{max} $$
+mass               = 0.4;
+funForcing         = @(t) cos(10 .* t);
+stiffness          = 500;
+coefficientDamping = 10;
+xInitial           = 0.001;
+vInitial           = 0.5;
+xMax               = 0.008;
+
+%% Calculations
+% $$ m \ddot{x} + c \dot{x} + kx = \cos{10t} $$
+%
+% Rewrite as system of first order ODEs:
+%
+% $$ \dot{v} = \frac{1}{m} \cos{10t} - \frac{c}{m}v - \frac{k}{m}x $$
+%
+% $$ \dot{x} = v $$
+%
+% Apply RK4:
+
+% Initialize System
+T        = 2;
+dt       = 0.001;
+N        = T / dt;
+times    = linspace(0, T, N);
+vx       = zeros(N, 2);
+vx(1, 2) = xInitial;
+vx(1, 1) = vInitial;
+
+% Run RK4 Integrator
+for n = [1 : N - 1] % n step through time
+    
+    time = (n - 1) * dt;
+    
+    vx(n + 1, :) = RK4SpringMassDamperForced(vx(n, 1), vx(n, 2), mass, ...
+                   coefficientDamping, stiffness, dt, funForcing, time);
+                   
+end % n
+
+xMaxTest = max(vx(:, 2))
+
+% Initialize New System
+vxNew                 = zeros(N, 2);
+vxNew(1, 2)           = xInitial;
+vxNew(1, 1)           = vInitial;
+coefficientDampingNew = [19 : 0.1 : 21];
+
+% Run RK4 Integrator for New C Values
+for c = coefficientDampingNew % c step through damping coefficients
+    for n = [1 : N - 1] % n step through time
+        
+        time = (n - 1) * dt;
+        
+        vxNew(n + 1, :) = RK4SpringMassDamperForced(vxNew(n, 1), vxNew(n, 2), mass, ...
+                          c, stiffness, dt, funForcing, time);
+        
+    end % n
+    
+    if max(vxNew(:, 2)) < xMax
+        coefficientDampingSelected = c;
+        break
+    end % if
+    
+end % c
+
+strSelected = strcat('c = ', num2str(coefficientDampingSelected), ' kg/s (Adjusted)');
+
+%% Plots
+figure(1)
+hold on
+title('Underdamped Forced Response (Initial and Adjusted)')
+xlabel('Time, t [s]')
+ylabel('Displacement, x(t) [m]')
+plot(times, repmat(xMax, 1, length(times)), 'color', [1 0 0])
+plot(times, vx(:, 2), 'color', [0 1 0])
+plot(times, vxNew(:, 2), 'color', [0 0 1])
+legend('Maximum Amplitude Allowable', 'c = 10 kg/s (Initial)', strSelected)
+
+%% Results
+% The original damping coefficient, c = 10 kg/s does not satisfy the
+% system's constraints. Integrating through the response with a time step,
+% dt = 0.001, and iterating through damping coefficients with a resolution
+% of 0.1 kg/s, the minimum allowable damping coefficient is found to be c =
+% 19.4 kg/s.
+##### SOURCE END #####
+--></body></html>
